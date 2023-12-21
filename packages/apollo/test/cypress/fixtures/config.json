@@ -1,6 +1,6 @@
 {
-    "loginUrl": "https://Your-Consoles-URL-Here",
-    "loginUserName": "Username-Here",
-    "loginDefaultPassword": "Password-Here",
-    "loginPassword": "Password-Here"
+    "loginUrl": "https://ibmsupport-ibm-hlfsupport-console-console.mycluster-dal10-b3-881201-68e10f583f026529fe7a89da40169ef4-0000.us-south.containers.appdomain.cloud/",
+    "loginUserName": "jindani.shoaeb@ibm.com",
+    "loginDefaultPassword": "Console@123",
+    "loginPassword": "Console@123"
 }
