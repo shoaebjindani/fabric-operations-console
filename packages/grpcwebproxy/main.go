@@ -95,6 +95,7 @@ func main() {
 			logrus.Infof("websocket keepalive pinging enabled, the timeout interval is %s", websocketPingInterval.String())
 		}
 		if *websocketReadLimit > 0 {
+			logrus.Println("WebSocket Read Limit is greater than 0 : ", *websocketReadLimit)
 			options = append(options, WithWebsocketsMessageReadLimit(*websocketReadLimit))
 		}
 
@@ -106,10 +107,13 @@ func main() {
 		var compressionMode websocket.CompressionMode
 		switch *websocketCompressionMode {
 		case "no_context_takeover":
+			logrus.Println("Case no_context_takeover")
 			compressionMode = websocket.CompressionNoContextTakeover
 		case "context_takeover":
+			logrus.Println("context_takeover")
 			compressionMode = websocket.CompressionContextTakeover
 		case "disabled":
+			logrus.Println("disabled")
 			compressionMode = websocket.CompressionDisabled
 		default:
 			logrus.Fatalf("unknwon param for websocket compression mode: %s", *websocketCompressionMode)
@@ -122,6 +126,7 @@ func main() {
 	}
 
 	if len(*flagAllowedHeaders) > 0 {
+		logrus.Println("flagAllowedHeaders > 0", flagAllowedHeaders)
 		options = append(
 			options,
 			WithAllowedRequestHeaders(*flagAllowedHeaders),
@@ -129,6 +134,8 @@ func main() {
 	}
 
 	wrappedGrpc := WrapServer(grpcServer, options...)
+
+	logrus.Println("Values of options ", options)
 
 	if !*runHttpServer && !*runTlsServer {
 		logrus.Fatalf("Both run_http_server and run_tls_server are set to false. At least one must be enabled for grpcweb proxy to function correctly.")
@@ -150,6 +157,7 @@ func main() {
 				resp.WriteHeader(status)
 			})
 		} else {
+			logrus.Printf("Health endpoint always returns HTTP status 200 if service is disabled")
 			// Health endpoint always returns HTTP status 200 if service is disabled
 			serveMux.HandleFunc("/"+*healthEndpointName, func(resp http.ResponseWriter, req *http.Request) {
 				resp.WriteHeader(http.StatusOK)
