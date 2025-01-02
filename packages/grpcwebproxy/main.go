@@ -135,7 +135,7 @@ func main() {
 
 	wrappedGrpc := WrapServer(grpcServer, options...)
 
-	logrus.Println("Values of options ", options)
+	logrus.Println("Values of options ", &options)
 
 	if !*runHttpServer && !*runTlsServer {
 		logrus.Fatalf("Both run_http_server and run_tls_server are set to false. At least one must be enabled for grpcweb proxy to function correctly.")
